@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import GraphInput from './components/GraphInput'
+import GraphVis from 'react-graph-vis'
+import {useState} from "react";
+import {Button} from "@mui/material";
+import Graph from "./model/Graph";
 
-function App() {
+const App = () => {
+
+  let [graphInputOpen, setGraphInputOpen] = useState(false)
+  let [graph, setGraph] = useState(new Graph(0))
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GraphInput open={graphInputOpen} setGraph={setGraph} handleClose={() => setGraphInputOpen(false)}/>
+      <Button onClick={() => setGraphInputOpen(true)}>Input New Graph</Button>
+      <GraphVis
+        graph={graph.getVisRepresentation()}
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
